@@ -63,9 +63,47 @@ Sequence::Sequence(std::vector<int>* encodedSequence, std::string& name, std::st
 void Sequence::encodeSequence()
 {
      /* code seq as ints .. use gapPos2 for gap */
-    std::vector<char>::iterator it;
-
+    //std::vector<char>::iterator it;
+    printf("New encoded sequence: \n");
     _encodedSequence.push_back(0);
+
+
+    // loop through _sequence
+    // map the letters to 26nary decimal numbers
+    // maxium 3 digits of 26nary is assumed
+    int i;
+    for (i=0; i<_sequence.size(); i++)
+    {
+        //printf("The string is: %s\n", _sequence[i].c_str());
+        int numMapped = 0;
+
+        //printf("The size is: %d\n", (int)_sequence[i].size());
+        int size = (int)_sequence[i].size();
+
+        if (size == 3)
+        {
+            numMapped += ((int)_sequence[i].at(0) - 65)*26*26 + 
+                         ((int)_sequence[i].at(1) - 65)*26 +
+                         ((int)_sequence[i].at(2) - 65);
+        }
+        else if (size == 2)
+        {
+            numMapped += ((int)_sequence[i].at(0) - 65)*26 + 
+                         ((int)_sequence[i].at(1) - 65);
+        }
+        else
+        {
+            numMapped += (int)_sequence[i].at(0) - 65;
+        }
+        
+
+        printf(" encoded sequence score: %d\n",numMapped);
+            
+
+        _encodedSequence.push_back(numMapped);
+    }
+
+
     /*
 
     Todo
@@ -116,14 +154,15 @@ void Sequence::copyStringIntoVector(vector<string>* _vectorTo, string* _stringFr
         }
         
         //_vectorTo->push_back(_stringFrom->at(i));
-        printf("%d\n", _stringFrom->at(i));
+        //printf("%d\n", _stringFrom->at(i));
     }
     
-    if(_vectorTo->size() != _stringFrom->size())
-    {
-        std::cerr << "Error: In function copyStringIntoVector. Strings different length!\n";
-        exit(1);
-    }
+    // old check does not suit our purpose
+    // if(_vectorTo->size() != _stringFrom->size())
+    // {
+    //     std::cerr << "Error: In function copyStringIntoVector. Strings different length!\n";
+    //     exit(1);
+    // }
 }
 
 /**
