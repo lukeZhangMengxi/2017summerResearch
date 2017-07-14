@@ -45,10 +45,10 @@ class Sequence
     private:
         /* Functions */
         void checkIntegrity();
-        void copyStringIntoVector(std::vector<char>* _vectorTo, std::string* _stringFrom);
+        void copyStringIntoVector(std::vector<string>* _vectorTo, std::string* _stringFrom);
         
         /* Attributes */
-        std::vector<char> _sequence;
+        std::vector<string> _sequence;
         std::vector<int> _encodedSequence;
         std::string _name;
         std::string _title;

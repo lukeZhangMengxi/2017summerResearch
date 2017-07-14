@@ -66,6 +66,9 @@ void Sequence::encodeSequence()
     std::vector<char>::iterator it;
 
     _encodedSequence.push_back(0);
+    /*
+
+    Todo
     
     for(it = _sequence.begin(); it != _sequence.end(); ++it) 
     {
@@ -78,6 +81,7 @@ void Sequence::encodeSequence()
             _encodedSequence.push_back(userParameters->resIndex(userParameters->getAminoAcidCodes(), *it));
         }
     }
+    */
 }
 
 /**
@@ -85,13 +89,33 @@ void Sequence::encodeSequence()
  * @param _vectorTo 
  * @param _stringFrom 
  */
-void Sequence::copyStringIntoVector(vector<char>* _vectorTo, string* _stringFrom)
+void Sequence::copyStringIntoVector(vector<string>* _vectorTo, string* _stringFrom)
 {
     _vectorTo->clear();
+    std::string temp;
 
     for(int i = 0; i < (int)_stringFrom->size(); i++)
-    {
-        _vectorTo->push_back(_stringFrom->at(i));
+    {   
+        // if "-", _vectorTo->push_back(letters)
+        if (_stringFrom->at(i) == '-')
+        {
+            _vectorTo->push_back(temp);
+            temp = "";
+        }
+        // if end of the sequence
+        else if (i + 1 >= (int)_stringFrom->size())
+        {
+            temp += _stringFrom->at(i);
+            _vectorTo->push_back(temp);
+            temp = "";
+        }
+        // if not "-", append letters
+        else
+        {
+            temp += _stringFrom->at(i);
+        }
+        
+        //_vectorTo->push_back(_stringFrom->at(i));
         printf("%d\n", _stringFrom->at(i));
     }
     
@@ -107,6 +131,11 @@ void Sequence::copyStringIntoVector(vector<char>* _vectorTo, string* _stringFrom
  */
 void Sequence::printSequence()
 {
+    /*
+
+    To make it simple,
+    ignore this func 
+
     std::cout << "This is the sequence and the encoded sequence " << _name << std::endl;
     
     std::vector<char>::iterator itChar;    
@@ -122,6 +151,7 @@ void Sequence::printSequence()
         cout << "  " << *itInt;
     } 
     cout << std::endl;
+    */
 }
 
 /**
@@ -189,7 +219,9 @@ bool Sequence::checkDNAFlag()
 // check if DNA or Protein
 // The decision is based on counting all A,C,G,T,U or N.
 // If >= 85% of all characters (except -) are as above => DNA 
+
 {
+    /*
     int c, numResidues, numBases;
     float ratio;
     string dna_codes = "ACGTUN";
@@ -233,6 +265,8 @@ bool Sequence::checkDNAFlag()
     {
         return false;
     }
+    */
+    return false;
 }
 
 }
