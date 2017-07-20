@@ -130,7 +130,7 @@ UserParameters::UserParameters(bool log)
     useTree2File = false;
     newTree1File = false;
     newTree2File = false;
-    aminoAcidCodes = "ABCDEFGHIKLMNOPQRSTUVWXYZ-";
+    aminoAcidCodes = "ABCDEFGHIJKLMNOPQRSTUVWXYZ-";
     maxAA = aminoAcidCodes.length() - 2;
     
     // Some variables need the alignment to be read in before they can be set.

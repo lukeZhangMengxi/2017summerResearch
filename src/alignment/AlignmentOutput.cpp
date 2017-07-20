@@ -1885,6 +1885,9 @@ void AlignmentOutput::clustalOut(Alignment* alignPtr, outputRegion partToOutput)
             {
                 i = alignPtr->getOutputIndex(ii - 1); 
                 printSeqNo[i] = 0;
+
+                sequenceLine = "";
+
                 for(j = pos; j <= ptr; ++j) 
                 {
                     if (j + firstRes - 1 <= alignPtr->getSeqLength(i))
@@ -1892,6 +1895,7 @@ void AlignmentOutput::clustalOut(Alignment* alignPtr, outputRegion partToOutput)
                         //val = alignPtr.getResidue(i, j + firstRes - 1);
                         val = (*alignment)[i][j + firstRes - 1]; // NOTE june29
                     }
+
                     else
                     { 
                         val = -3;
@@ -1900,15 +1904,35 @@ void AlignmentOutput::clustalOut(Alignment* alignPtr, outputRegion partToOutput)
                     {
                         break;
                     }
-                    else if((val < 0) || (val > userParameters->getMaxAA()))
+                    else if((val < 0) || (val == 30))//> userParameters->getMaxAA()))
                     {
                         seq1[j] = '-';
+                        sequenceLine.append("- ");
+
                     }
                     else 
                     {
                         seq1[j] = userParameters->getAminoAcidCode(val);    // change HERE to num
                         seqNo[i]++;
-                        printSeqNo[i] = 1;       
+                        printSeqNo[i] = 1;
+
+
+                        //int Number = 123;       // number to be converted to a string
+
+                        std::string Result;          // string which will contain the result
+
+                        std::ostringstream convert;   // stream used for the conversion
+
+                        convert << val;      // insert the textual representation of 'Number' in the characters in the stream
+
+                        Result = convert.str(); // set 'Result' to the contents of the stream
+
+
+
+
+
+
+                        sequenceLine.append(Result + " ");
                     }
                 }
 
@@ -1917,11 +1941,11 @@ void AlignmentOutput::clustalOut(Alignment* alignPtr, outputRegion partToOutput)
                     seq1[j]='-';
                 }
             
-                sequenceLine = "";
+                //sequenceLine = "";
 
                 for(int index = pos; index < ptr + 1; index++)
                 {
-                    sequenceLine += seq1[index];
+                    //sequenceLine.append("abc");// += 'abc';//seq1[index];
                 }
                 
                 string seqName = alignPtr->getName(i);
