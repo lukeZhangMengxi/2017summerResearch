@@ -1,9 +1,11 @@
 import sys
 import os
 
-seqArray = []
-mapArray = []
-output = []
+seqArray = []	# encoded sequence array	
+mapArray = []	# map addresses to index numbers
+output = []	# alginmented output
+s = []		# for scoring method
+
 
 def readFromPinOut(fileName):	
 
@@ -97,12 +99,12 @@ def analyzeClustalOut():
         content.pop(0)
         content.pop(0)
         content.pop(-1)
-        print content
+        #print content
 
         # Close opend file
         fo.close()
 
-	# 
+	# decode the output 
 	for i in range(0, len(content)):
 		
 		# remove the spaces before the first letter
@@ -111,21 +113,47 @@ def analyzeClustalOut():
 		# get the tempStr
 		tempSeq = content[i].split()
 		tempStr = ""
+		tempSet = []
 		for j in range(0, len(tempSeq)):
 			if tempSeq[j] == "-":
 				tempStr += "-- "
+				tempSet.append("-")
 			else:
 				firstNum = int(tempSeq[j]) // 26
 				secondNum = int(tempSeq[j]) % 26
 				firstLetter = chr(firstNum + 65)
 				secondLetter = chr(secondNum + 65)
 				tempStr += (firstLetter + secondLetter + " ")
+				
+				tempSet.append(firstLetter + secondLetter)	
 		output.append(tempStr)
+		s.append(tempSet)
 		
-
+	
 	print output[0]
 	print output[1]
 	print output[2]
+
+
+
+	# the Score
+	size = len(s[0])
+	matches = 0
+	numPairs = 0
+
+	for i in range(0, len(s)):
+		numPairs += i
+
+	for i in range(0, len(s)):
+		counter = len(s)
+		for j in range(i+1, counter):
+			for k in range(0,len(s[0])):
+				if s[i][k] == s[j][k]:
+					matches += 1
+	
+	score = matches / ( float(size) * numPairs )
+	print "Score: ", matches, "/(", size,"*", numPairs, ") = ", score
+
 
 
 def main():
