@@ -55,6 +55,7 @@ namespace clustalw
 
 typedef std::vector<vector <int> > SeqArray;
 
+
 class Alignment
 {
     public:
@@ -160,6 +161,7 @@ class Alignment
         void debugPrintSequences();
         
         /* Attributes */
+        //std::vector<vector <int> > sameArray;
 
         /* Friends */
         class NameIterator;

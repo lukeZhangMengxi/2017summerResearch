@@ -55,7 +55,7 @@ UserParameters::UserParameters(bool log)
     hydResidues = "GPSNDQEKR";
     noWeights = true;//false;
     negMatrix = false;
-    noHydPenalties = false;
+    noHydPenalties = true;//false;
     noVarPenalties = true;
     noPrefPenalties = false;
     useEndGaps = false;
@@ -67,37 +67,37 @@ UserParameters::UserParameters(bool log)
     structPenalties2 = NONE;
     useSS1 = true;
     useSS2 = true;
-    helixPenalty = 4;
-    strandPenalty = 4;
-    loopPenalty = 1;
-    helixEndMinus = 3;
+    helixPenalty = 0;//4;
+    strandPenalty = 0;//4;
+    loopPenalty = 0;//1;
+    helixEndMinus = 0;//3;
     helixEndPlus = 0;
-    strandEndMinus = 1;
-    strandEndPlus = 1;
-    helixEndPenalty = 2;
-    strandEndPenalty = 2;
+    strandEndMinus = 0;//1;
+    strandEndPlus = 0;//1;
+    helixEndPenalty = 0;//2;
+    strandEndPenalty = 0;//2;
     useAmbiguities = false;
-    DNAPWGapOpen = 15.0;
-    DNAPWGapExtend = 6.66;
-    AAPWGapOpen = 10.0;
-    AAPWGapExtend = 0.1;
+    DNAPWGapOpen = 0;//15.0;
+    DNAPWGapExtend = 0;//6.66;
+    AAPWGapOpen = 0;//10.0;
+    AAPWGapExtend = 0;//0.1;
 
     quickPairAlign = false;
-    transitionWeight = 0.5;
-    DNAKtup = 2;
-    DNAWindowGap = 5;
-    DNASignif = 4;
-    DNAWindow = 4;
-    AAKtup = 1;
-    AAWindowGap = 3;
-    AASignif = 5;
-    AAWindow = 5;
+    transitionWeight = 0;//0.5;
+    DNAKtup = 0;//2;
+    DNAWindowGap = 0;//5;
+    DNASignif = 0;//4;
+    DNAWindow = 0;//4;
+    AAKtup = 0;//1;
+    AAWindowGap = 0;//3;
+    AASignif = 0;//5;
+    AAWindow = 0;//5;
     percent = true;
     tossgaps = false;
     kimura = false;
     bootNumTrials = 1000;
     bootRanSeed = 111;
-    debug = 5;
+    debug = 1;//5;
     explicitDNAFlag = false;
     lowercase = true;
     clSeqNumbers = false;
@@ -131,7 +131,7 @@ UserParameters::UserParameters(bool log)
     newTree1File = false;
     newTree2File = false;
     aminoAcidCodes = "ABCDEFGHIJKLMNOPQRSTUVWXYZ-";
-    maxAA = aminoAcidCodes.length() - 2;
+    maxAA = aminoAcidCodes.length();// - 2;
     
     // Some variables need the alignment to be read in before they can be set.
     // I am putting the default as protein. Note: this should not make a difference

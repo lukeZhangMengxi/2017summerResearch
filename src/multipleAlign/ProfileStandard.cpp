@@ -44,7 +44,7 @@ void ProfileStandard::calcStandardProfile(SeqArray* seqArray, vector<int>* seqWe
     
     int sum1, sum2;
     int i, d;
-    int r;
+    int r; // column index
     int _maxAA = userParameters->getMaxAA();
     profile.resize(prfLength + 2, vector<int>(LENCOL + 2));
     int _gapPos1 = userParameters->getGapPos1();
@@ -76,7 +76,7 @@ void ProfileStandard::calcStandardProfile(SeqArray* seqArray, vector<int>* seqWe
         }
         else
         {
-            for (d = 0; d <= _maxAA; d++)
+            for (d = 0; d <= 256; d++) // should change _maxAA to 256 or higher?
             {
                 sum1 = 0;
                 for (i = firstSeq; i < lastSeq; i++)

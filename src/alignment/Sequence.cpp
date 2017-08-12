@@ -97,7 +97,7 @@ void Sequence::encodeSequence()
         }
         
 
-        printf(" encoded sequence score: %d\n",numMapped);
+        printf(" encoded sequence element: %d\n",numMapped);
             
 
         _encodedSequence.push_back(numMapped);
