@@ -4,7 +4,11 @@ import os
 seqArray = []	# encoded sequence array	
 mapArray = []	# map addresses to index numbers
 output = []	# alginmented output
-s = []		# for scoring method
+s = []
+
+
+
+#python addr-align.py /home/luke/Desktop/2017-Summer-Research/pin/output-to-align/linux-coreutils/echo/output/1.out /home/luke/Desktop/2017-Summer-Research/pin/output-to-align/linux-coreutils/echo/output/2.out /home/luke/Desktop/2017-Summer-Research/pin/output-to-align/linux-coreutils/echo/output/3.out
 
 
 def readFromPinOut(fileName):	
@@ -42,7 +46,7 @@ def readFromPinOut(fileName):
 			if content[i] == mapArray[j]:
 				newSeq.append(j)
 				break
-	print newSeq
+	print "newSeq: ", newSeq
 
 	
 	tempStr = ""
@@ -87,29 +91,65 @@ def prepareClustalInput():
 def analyzeClustalOut():
 	
 	# Open a file
-        fo = open("in.aln", "rw+")
-        print "Name of the file: ", fo.name
+    	fo = open("in.aln", "rw+")
+    	print "Name of the file: ", fo.name
 
-        # Get and strip the content
-        content = fo.readlines()
-        content = [x.strip() for x in content]
-        content = [x.replace(x[:5], "") for x in content]
-        #content = [x.replace(" ", "") for x in content]
-        content.pop(0)
-        content.pop(0)
-        content.pop(0)
-        content.pop(-1)
-        #print content
+    	# Get and strip the content
+    	content = fo.readlines()
 
-        # Close opend file
-        fo.close()
+    	content = [x.strip() for x in content]
+    	#content = [x.replace(x[:5], "") for x in content]
+	# remove the head and tails
+    	content.pop(0)
+    	content.pop(0)
+    	content.pop(0)
+    	content.pop(-1)
+
+
+	num_of_seq = 0
+
+	# get number of sequences
+	while num_of_seq < len(content) and content[num_of_seq] != "":
+		num_of_seq += 1
+		print num_of_seq
+
+
+	# append lines with the same name to the first one
+	print "--------------------starting append "
+	print "num_of_seq := ", num_of_seq
+	print "content len := ", len(content) 
+	for i in range(num_of_seq + 1, len(content)):
+		print i
+		if content[i] != "":
+			print i
+			for j in range (0, num_of_seq):
+				if content[i][3] == content[j][3] and content[i][4] == content[j][4] and content[i][5] == content[j][5]:
+					content[j] += content[i][15:]
+
+	print "--------------------append end"
+		
+
+	for i in range(0, num_of_seq):
+		content[i] = content[i][16:]	
+	
+
+
+	# print the content
+	#print num_of_seq
+	#for i in range(0, len(content)):
+	#	print content[i]
+
+
+    	# Close opend file
+    	fo.close()
 
 	# decode the output 
-	for i in range(0, len(content)):
+	for i in range(0, num_of_seq):
 		
 		# remove the spaces before the first letter
 		while content[i][0] == " ":
 			content[i]=content[i][1:]
+
 		# get the tempStr
 		tempSeq = content[i].split()
 		tempStr = ""
@@ -130,29 +170,13 @@ def analyzeClustalOut():
 		s.append(tempSet)
 		
 	
-	print output[0]
-	print output[1]
-	print output[2]
-
-
+	for i in range(0, len(output)):
+		print output[i]
+	#for i in range(0, len(s)):
+	#	print s[i]
 
 	# the Score
-	size = len(s[0])
-	matches = 0
-	numPairs = 0
-
-	for i in range(0, len(s)):
-		numPairs += i
-
-	for i in range(0, len(s)):
-		counter = len(s)
-		for j in range(i+1, counter):
-			for k in range(0,len(s[0])):
-				if s[i][k] == s[j][k]:
-					matches += 1
-	
-	score = matches / ( float(size) * numPairs )
-	print "Score: ", matches, "/(", size,"*", numPairs, ") = ", score
+	#
 
 
 
@@ -172,7 +196,7 @@ if __name__ == '__main__':
 
 
 
-#python addr-transfer.py /home/luke/Desktop/2017-Summer-Research/pin/target-program/2/output/first-test.out /home/luke/Desktop/2017-Summer-Research/pin/target-program/2/output/second-test.out /home/luke/Desktop/2017-Summer-Research/pin/target-program/2/output/third-test.out
+
 
 
 
